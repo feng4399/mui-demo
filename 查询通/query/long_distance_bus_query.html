@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<link rel="stylesheet" href="../css/mui.picker.css" />
+		<link rel="stylesheet" href="../css/mui.poppicker.css" />
+		<style>
+			body,
+			html,
+			.mui-content {
+				background: #FFF;
+			}
+			
+			#showCityPicker {
+				margin: 10px;
+			}
+			
+			#title {
+				margin-bottom: 10px;
+				margin-top: 10px;
+				border: 0;
+			}
+			
+			.mui-scroll {
+				margin-top: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background: #3b78c8;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" style="color: #FFF;">长途汽车</h1>
+		</header>
+		<div class="mui-content">
+			<button type="button" class="mui-pull-left" id='title'></button>
+			<button type="button" class="mui-pull-right" id='showCityPicker'>切换城市</button>
+			<div class="mui-scroll">
+				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed" id="station">
+				</ul>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="../js/mui.picker.js"></script>
+		<script type="text/javascript" src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../js/city.data.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			dj.init();
+			var request_url = "http://op.juhe.cn/onebox/bus/query";
+			var key_name = "9cf7367e3df6ea96693c9ed0b67c4b7d";
+			mui.plusReady(function() {
+				getStationInfo("北京");
+				mui('.mui-content').on("tap", "#showCityPicker", function() {
+					var cityPicker = new mui.PopPicker({
+						layer: 2
+					});
+					cityPicker.setData(cityData);
+					cityPicker.show(function(items) {
+						var name="";
+						if(items[0].text.indexOf("北京市") > -1 || items[0].text.indexOf("天津市") > -1 || items[0].text.indexOf("上海市") > -1 || items[0].text.indexOf("重庆") > -1) {
+							 name=items[0].text.replace("市","");
+						} else {
+							var name=items[1].text.replace("市","");
+						}
+						getStationInfo(name);
+
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					}, false);
+				})
+			});
+
+			function getStationInfo(city) {
+				plus.nativeUI.showWaiting("数据加载中");
+				dj.get({
+					url: request_url,
+					data: {
+						station: city,
+						key: key_name
+					},
+					succFn: function(data) {
+						plus.nativeUI.closeWaiting();
+						var datas = JSON.parse(data);
+						var temp="";
+						$("#station").html("");
+						if(datas.reason == "查询成功") {
+							$("#title").html(datas.result.title);
+							var result = datas.result;
+							for(var i in result.list) {
+								 temp =
+									'<li class="mui-table-view-cell"  dataPhone="' + result.list[i].tel + '">' +
+									'<div class="mui-table">' +
+									'<div class="mui-table-cell mui-col-xs-9 ">' +
+									'<h4 class="mui-ellipsis">' + result.list[i].name + '</h4>' +
+									'<p class=" mui-ellipsis">' + result.list[i].adds + '</p>' +
+									'<span >' + result.list[i].tel + '</span>' +
+									'</div>' +
+									'</div>' +
+									'</li>';
+								$("#station").append(temp);
+
+							}
+						} else if(datas.reason == "查询不到该汽车站相关信息") {
+							$("#station").append("查询不到该汽车站相关信息");
+						}
+
+					}
+				})
+			}
+
+			//拨打电话
+			mui('.mui-table-view').on('tap', 'li', function() {
+				var phone = $(this).attr("dataPhone");
+				if(phone != null && phone.length != 0) {
+					dj.phone(phone);
+				}
+			});
+		</script>
+	</body>
+
+</html>

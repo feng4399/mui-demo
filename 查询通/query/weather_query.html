@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<link rel="stylesheet" href="../css/mui.picker.css" />
+		<link rel="stylesheet" href="../css/mui.poppicker.css" />
+		<style>
+			body,
+			html,
+			.mui-content {
+				background: #FFF;
+			}
+			
+			#cityResult {
+				margin-top: 10px;
+				font-weight: bold;
+			}
+			
+			#showCityPicker {
+				margin: 10px;
+			}
+			
+			#center {
+				width: 100%;
+				height: 200px;
+				margin-top: 50px;
+			}
+			
+			#center_top {
+				padding-top: 70px;
+				margin-left: 10px;
+			}
+			
+			#weather {
+				margin-top: -20px;
+				margin-right: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background: #3b78c8;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" style="color: #FFF;">天气预报</h1>
+		</header>
+		<div class="mui-content">
+			<label class="mui-title" id='cityResult'>北京市</label>
+			<button type="button" class="mui-pull-right" id='showCityPicker'>切换城市</button>
+			<div id="center" style="display: none;">
+				<label class="mui-pull-left" style="margin-left: 10px;margin-top:40px;font-weight: bold;font-size: 80px;" id="wendu"></label>
+				<label class="mui-pull-left" style="">o</label>
+				<label style="margin-left: 5px;">实时</label>
+				<div id="center_top">
+					<label class="mui-pull-left" id="feng"></label>
+					<label style="margin-left: 5px;" id="jiji"></label>
+					<label class="mui-pull-right" id="weather"></label>
+				</div>
+				<ul class="mui-table-view" style="margin-top: 10px;">
+					<li class="mui-table-view-cell">
+						7天预报
+					</li>
+				</ul>
+				<div class="mui-scroll">
+					<ul class="mui-table-view mui-table-view-chevron" id="lists">
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<div class="mui-table-cell mui-col-xs-9 ">
+									<h4 class="mui-ellipsis" id="date1"></h4>
+									<p class=" mui-ellipsis" id="weather1"></p>
+								</div>
+								<div class="mui-table-cell mui-text-right">
+									<span id="time1"></span>
+									<span id="wd1" style="margin-right: 10px;"></span>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<div class="mui-table-cell mui-col-xs-9 ">
+									<h4 class="mui-ellipsis" id="date2"></h4>
+									<p class=" mui-ellipsis" id="weather2"></p>
+								</div>
+								<div class="mui-table-cell mui-text-right">
+									<span id="time2"></span>
+									<span id="wd2" style="margin-right: 10px;"></span>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<div class="mui-table-cell mui-col-xs-9 ">
+									<h4 class="mui-ellipsis" id="date3"></h4>
+									<p class=" mui-ellipsis" id="weather3"></p>
+								</div>
+								<div class="mui-table-cell mui-text-right">
+									<span id="time3"></span>
+									<span id="wd3" style="margin-right: 10px;"></span>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<div class="mui-table-cell mui-col-xs-9 ">
+									<h4 class="mui-ellipsis" id="date4"></h4>
+									<p class=" mui-ellipsis" id="weather4"></p>
+								</div>
+								<div class="mui-table-cell mui-text-right">
+									<span id="time4"></span>
+									<span id="wd4" style="margin-right: 10px;"></span>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<div class="mui-table-cell mui-col-xs-9 ">
+									<h4 class="mui-ellipsis" id="date5"></h4>
+									<p class=" mui-ellipsis" id="weather5"></p>
+								</div>
+								<div class="mui-table-cell mui-text-right">
+									<span id="time5"></span>
+									<span id="wd5" style="margin-right: 10px;"></span>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<div class="mui-table-cell mui-col-xs-9 ">
+									<h4 class="mui-ellipsis" id="date6"></h4>
+									<p class=" mui-ellipsis" id="weather6"></p>
+								</div>
+								<div class="mui-table-cell mui-text-right">
+									<span id="time6"></span>
+									<span id="wd6" style="margin-right: 10px;"></span>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-table">
+								<div class="mui-table-cell mui-col-xs-9 ">
+									<h4 class="mui-ellipsis" id="date7"></h4>
+									<p class=" mui-ellipsis" id="weather7"></p>
+								</div>
+								<div class="mui-table-cell mui-text-right">
+									<span id="time7"></span>
+									<span id="wd7" style="margin-right: 10px;"></span>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="../js/mui.picker.js"></script>
+		<script type="text/javascript" src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../js/city.data.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var request_url = "http://v.juhe.cn/weather/index";
+			var key_name = "a7f54538a04dbd86757f177f7c8078f8";
+			var date = new Date();
+			var year = date.getFullYear();
+			var month = date.getMonth() + 1;
+			var tian = date.getDate();
+			if(month < 10) {
+				month = "0" + month;
+			}
+			if(tian < 10) {
+				tian = "0" + tian;
+			}
+			var cityResult = document.getElementById("cityResult");
+
+			mui.plusReady(function() {
+				getWeatherInfo("北京市");
+				mui('.mui-content').on("tap", "#showCityPicker", function() {
+					var cityPicker = new mui.PopPicker({
+						layer: 2
+					});
+					cityPicker.setData(cityData);
+					cityPicker.show(function(items) {
+						if(items[0].text.indexOf("北京市") > -1 || items[0].text.indexOf("天津市") > -1 || items[0].text.indexOf("上海市") > -1 || items[0].text.indexOf("重庆") > -1) {
+							cityResult.innerText = items[0].text;
+							getWeatherInfo(items[0].text);
+						} else {
+							cityResult.innerText = items[1].text;
+							getWeatherInfo(items[1].text);
+						}
+
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					}, false);
+				})
+			});
+
+			function getWeatherInfo(cityname) {
+				plus.nativeUI.showWaiting("数据加载中");
+				dj.get({
+					url: request_url,
+					data: {
+						cityname: cityname,
+						key: key_name
+					},
+					succFn: function(data) {
+						plus.nativeUI.closeWaiting();
+						$("#center").show();
+						var datas = JSON.parse(data);
+						var result = datas.result;
+						if(result != null) {
+							$("#wendu").html(result.sk.temp);
+							$("#feng").html(result.sk.wind_direction);
+							$("#jiji").html(result.sk.wind_strength);
+							$("#weather").html(result.today.weather);
+							//七天预报
+							var nodate=year + month + tian;
+							var future1 = result.future.day_20180920;
+							var future2 = result.future.day_20180921;
+							var future3 = result.future.day_20180922;
+							var future4 = result.future.day_20180923;
+							var future5 = result.future.day_20180924;
+							var future6 = result.future.day_20180925;
+							var future7 = result.future.day_20180926;
+							$("#date1").html(future1.week);
+							$("#weather1").html(future1.weather);
+							$("#time1").html(future1.date);
+							$("#wd1").html(future1.temperature);
+							$("#date2").html(future2.week);
+							$("#weather2").html(future2.weather);
+							$("#time2").html(future2.date);
+							$("#wd2").html(future2.temperature);
+							$("#date3").html(future3.week);
+							$("#weather3").html(future3.weather);
+							$("#time3").html(future3.date);
+							$("#wd3").html(future3.temperature);
+							$("#date4").html(future4.week);
+							$("#weather4").html(future4.weather);
+							$("#time4").html(future4.date);
+							$("#wd4").html(future4.temperature);
+							$("#date5").html(future5.week);
+							$("#weather5").html(future5.weather);
+							$("#time5").html(future5.date);
+							$("#wd5").html(future5.temperature);
+							$("#date6").html(future6.week);
+							$("#weather6").html(future6.weather);
+							$("#time6").html(future6.date);
+							$("#wd6").html(future6.temperature);
+							$("#date7").html(future7.week);
+							$("#weather7").html(future7.weather);
+							$("#time7").html(future7.date);
+							$("#wd7").html(future7.temperature);
+
+						}
+
+					}
+
+				})
+			}
+
+			setInterval(function() {
+				getWeatherInfo("北京市");
+			}, 60000); //60秒执行一次
+
+			// getTime(); 
+			var nowDate = "";
+
+			function getTime() {
+				var date = new Date();
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				if(month < 10) {
+					month = "0" + month;
+				}
+				if(day < 10) {
+					day = "0" + day;
+				}
+				nowDate = year + month + day;
+			}
+		</script>
+	</body>
+
+</html>

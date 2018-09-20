@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			body {
+				background-color: black;
+			}
+			
+			.guide-img {
+				width: 100%;
+			}
+			
+			#start {
+				position: absolute;
+				bottom: 100px;
+				width: 60%;
+				left: 20%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-slider mui-fullscreen">
+				<div class="mui-slider-group">
+					<div class="mui-slider-item">
+						<a href="javascript:;">
+							<img class="guide-img" src="img/1.png">
+
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="javascript:;">
+							<img class="guide-img" src="img/3.png">
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="javascript:;">
+							<img class="guide-img" src="img/2.png">
+							<button class="mui-btn mui-btn-blue mui-btn-outlined" type="button" id="start">开始体验</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function() {
+				plus.navigator.closeSplashscreen();
+				document.getElementById("start").addEventListener("tap", function() {
+					plus.storage.setItem("launchFlag", "true");
+					var phone = localStorage.getItem("username");
+					if(phone == null || phone == "") {
+						mui.openWindow({
+							url: "login.html",
+							id: "login"
+						});
+
+					} else {
+						mui.openWindow({
+							url: "main.html",
+							id: "main.html"
+						});
+					}
+				});
+			});
+			/**
+			 * 重写mui.back()，什么都不执行，反之用户返回到入口页；
+			 */
+			mui.back = function() {};
+		</script>
+	</body>
+
+</html>

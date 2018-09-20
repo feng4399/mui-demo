@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>新闻</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background: #3b78c8;">
+			<span class=" mui-action-back mui-icon  mui-icon-left-nav mui-pull-left" style="color: #FFFFFF;"><label style="font-size: 17px;line-height: 22px;margin-left: 0px;">返回</label></span>
+			<h1 class="mui-title mui-action-back" id="title" style="color: #FFFFFF;"></h1>
+		</header>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/jquery-2.1.1.min.js" ></script>
+		<script type="text/javascript">
+			mui.init({
+				swipeBack: false
+			})
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				$("#title").html(self.title);
+				var external = plus.webview.create(self.name, "address", {
+					top: "44px",
+					bottom: 0
+				});
+				self.append(external);
+			});
+		</script>
+	</body>
+
+</html>

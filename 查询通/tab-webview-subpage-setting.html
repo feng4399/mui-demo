@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-table-view-chevron" >
+				<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right" >
+						<img class="mui-media-object mui-pull-left head-img" id="head-img" src="img/icon_user.png">
+						<div class="mui-media-body">
+							Hello
+							<p class='mui-ellipsis'>账号:admin</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 10px;">
+				<li class="mui-table-view-cell">
+					<a style="color: #666666;" class="mui-navigate-right">
+						<img src="img/pwd.png" style="width: 20px; height: 20px; float: left;" />
+						<span style="margin-left: 20px;">账号与安全</span>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view"  style="margin-top: 10px;">
+				<li class="mui-table-view-cell">
+					<a style="color: #666666;" class="mui-navigate-right">
+						<img src="img/edition.png" / style="width: 20px; height: 20px; float: left;">
+						<span style="margin-left: 20px;">应用版本</span>
+						<span id="app_version" class="mui-pull-right" style="padding-right: 25px;"></span>
+						<input type="hidden" id="version_info" value="" />
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 10px;">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" style="color: #666666; ">
+						<img src="img/system.png" / style="width: 20px; height: 20px; float: left;">
+						<span style="margin-left: 20px;">消息通知</span>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" style="color: #666666; ">
+						<img src="img/system.png" / style="width: 20px; height: 20px; float: left;">
+						<span style="margin-left: 20px;">隐私</span>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" style="color: #666666; ">
+						<img src="img/system.png" / style="width: 20px; height: 20px; float: left;">
+						<span style="margin-left: 20px;">关于系统</span>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 10px;" id="loginout">
+				<li class="mui-table-view-cell">
+					<a style="text-align: center;color: #666666;">
+						退出登录
+					</a>
+				</li>
+			</ul>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+	</body>
+
+</html>

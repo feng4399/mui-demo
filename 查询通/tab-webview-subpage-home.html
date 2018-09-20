@@ -1,0 +1,319 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<style>
+			.swiper-container {
+				height: 200px;
+			}
+			
+			.mui-slider-indicator {
+				bottom: 0;
+			}
+			
+			.mui-slider {
+				background-color: #FFF;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="swiper-container" style="margin-top: 0px;">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"><img src="img/cbd.jpg" /></div>
+					<div class="swiper-slide"><img src="img/muwu.jpg" /></div>
+					<div class="swiper-slide"><img src="img/shuijiao.jpg" /></div>
+					<div class="swiper-slide"><img src="img/yuantiao.jpg" /></div>
+				</div>
+				<!-- 如果需要分页器 -->
+				<div class="swiper-pagination"></div>
+
+			</div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					查询通
+					<div id="Gallery_Toggle" class="mui-switch">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+			</ul>
+			<div id="Gallery" class="mui-slider">
+				<div class="mui-slider-group">
+					<div class="mui-slider-item">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-home"></span>
+									<div class="mui-media-body">天气预报</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-email"></span>
+									<div class="mui-media-body">手机归属地查询</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-chatbubble"></span>
+									<div class="mui-media-body">身份证查询</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-location"></span>
+									<div class="mui-media-body">长途汽车查询</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-search"></span>
+									<div class="mui-media-body">邮编查询</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-phone"></span>
+									<div class="mui-media-body">快递查询</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-gear"></span>
+									<div class="mui-media-body">商标查询</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-info"></span>
+									<div class="mui-media-body">谷歌翻译</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-more"></span>
+									<div class="mui-media-body">货币汇率</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="mui-slider-item">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-home"></span>
+									<div class="mui-media-body">Home</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-email"></span>
+									<div class="mui-media-body">Email</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-chatbubble"></span>
+									<div class="mui-media-body">Chat</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-location"></span>
+									<div class="mui-media-body">location</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-search"></span>
+									<div class="mui-media-body">Search</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-phone"></span>
+									<div class="mui-media-body">Phone</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-gear"></span>
+									<div class="mui-media-body">Setting</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-info"></span>
+									<div class="mui-media-body">about</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-more"></span>
+									<div class="mui-media-body">more</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="mui-slider-item">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-home"></span>
+									<div class="mui-media-body">Home</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-email"></span>
+									<div class="mui-media-body">Email</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-chatbubble"></span>
+									<div class="mui-media-body">Chat</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-location"></span>
+									<div class="mui-media-body">location</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-search"></span>
+									<div class="mui-media-body">Search</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-phone"></span>
+									<div class="mui-media-body">Phone</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-gear"></span>
+									<div class="mui-media-body">Setting</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-info"></span>
+									<div class="mui-media-body">about</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon mui-icon-more"></span>
+									<div class="mui-media-body">more</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js "></script>
+		<script type="text/javascript" src="js/swiper.min.js"></script>
+		<script type="text/javascript ">
+			mui.init();
+			var mySwiper = new Swiper('.swiper-container', {
+				loop: true, //循环播放
+				pagination: '.swiper-pagination',
+				visibilityFullFit: true,
+				autoplay: 3000,
+				autoplayDisableOnInteraction: false,
+				observer: true,
+				observeParents: true,
+				onSlideChangeEnd: function(swiperHere) {}
+			});
+			var slider = document.getElementById('Gallery');
+			var group = slider.querySelector('.mui-slider-group');
+			var items = mui('.mui-slider-item', group);
+			//克隆第一个节点
+			var first = items[0].cloneNode(true);
+			first.classList.add('mui-slider-item-duplicate');
+			//克隆最后一个节点
+			var last = items[items.length - 1].cloneNode(true);
+			last.classList.add('mui-slider-item-duplicate');
+			//处理是否循环逻辑，若支持循环，需支持两点：
+			//1、在.mui-slider-group节点上增加.mui-slider-loop类
+			//2、重复增加2个循环节点，图片顺序变为：N、1、2...N、1
+			var sliderApi = mui(slider).slider();
+
+			mui('.mui-table-view').on('tap', 'li', function() {
+				var itemTitle = this.querySelector('.mui-media-body').innerHTML;
+				if(itemTitle == "天气预报") {
+					mui.openWindow({
+						url: 'query/weather_query.html',
+						id: 'weather_query.html',
+						waiting: {
+							autoShow: false
+						}
+					});
+				} else if(itemTitle == "手机归属地查询") {
+					mui.openWindow({
+						url: 'query/phone_query.html',
+						id: 'phone_query.html',
+						waiting: {
+							autoShow: false
+						}
+					});
+				} else if(itemTitle == "身份证查询") {
+					mui.openWindow({
+						url: 'query/card_query.html',
+						id: 'phone_card.html',
+						waiting: {
+							autoShow: false
+						}
+					});
+				} else if(itemTitle == "长途汽车查询") {
+					mui.openWindow({
+						url: 'query/long_distance_bus_query.html',
+						id: 'long_distance_bus_query.html',
+						waiting: {
+							autoShow: false
+						}
+					});
+				}
+			});
+
+			function toggleLoop(loop) {
+				if(loop) {
+					group.classList.add('mui-slider-loop');
+					group.insertBefore(last, group.firstChild);
+					group.appendChild(first);
+					sliderApi.refresh();
+					sliderApi.gotoItem(0);
+				} else {
+					group.classList.remove('mui-slider-loop');
+					group.removeChild(first);
+					group.removeChild(last);
+					sliderApi.refresh();
+					sliderApi.gotoItem(0);
+				}
+			}
+			//按下“循环”按钮的处理逻辑；
+			document.getElementById('Gallery_Toggle').addEventListener('toggle', function(e) {
+				var loop = e.detail.isActive;
+				toggleLoop(loop);
+			});
+		</script>
+	</body>
+
+</html>

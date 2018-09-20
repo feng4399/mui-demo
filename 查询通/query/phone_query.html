@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background: #3b78c8;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">手机归属地</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-input-row">
+				<input type="number" class="mui-input-clear" placeholder="请输入查询的手机号码或手机号码前7位" id="callphone">
+			</div>
+			<button type="button" class="mui-btn mui-btn-primary mui-btn-outlined">查询</button>
+			<ul class="mui-table-view mui-table-view-chevron" id="isshow" style="display: none;margin-top: 20px;">
+				<li class="mui-table-view-cell mui-media">
+					<label id="result"></label>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var request_url = "http://apis.juhe.cn/mobile/get";
+			var key_name = "996f7c0cbfc4d6b9fe3f89a4b5daf0b5";
+
+			mui.plusReady(function() {
+				$("button").click(function() {
+					$("#result").html("");
+					if($("#callphone").val() == "") {
+						alert("根据提示请输入号码");
+						return;
+					}
+					queryAddress($("#callphone").val());
+				});
+
+			});
+
+			function queryAddress(number) {
+				plus.nativeUI.showWaiting("查询中,请稍后");
+				dj.get({
+					url: request_url,
+					data: {
+						key: key_name,
+						phone: number
+					},
+					succFn: function(data) {
+						plus.nativeUI.closeWaiting();
+						var datas = JSON.parse(data);
+						if(datas.result != null) {
+							$("#result").html("查询信息:" + datas.result.province + "-" + datas.result.city + "-" + datas.result.company)
+							$("#isshow").show();
+						} else {
+							mui.toast("手机号输入格式不正确");
+							$("#isshow").hide();
+						}
+
+					}
+				})
+			}
+		</script>
+	</body>
+
+</html>
