@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<link rel="stylesheet" href="../css/mui.picker.css" />
+		<link rel="stylesheet" href="../css/mui.poppicker.css" />
+		<style>
+			body,
+			html,
+			.mui-content {
+				background: #FFF;
+			}
+			
+			#cityResult {
+				margin-top: 20px;
+				font-weight: bold;
+			}
+			
+			#showCityPicker {
+				margin: 10px;
+			}
+			
+			#center {
+				width: 100%;
+				height: 200px;
+				margin-top: 50px;
+			}
+			
+			#center_top {
+				padding-top: 70px;
+				margin-left: 10px;
+			}
+			
+			#weather {
+				margin-top: -20px;
+				margin-right: 10px;
+			}
+			
+			#cityResult {
+				color: #007AFF;
+				margin-top: -50px;
+				margin-right: 30px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background: #3b78c8;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" style="color: #FFF;">天气预报</h1>
+		</header>
+		<div class="mui-content">
+			<button type="button" class="mui-pull-right" id='showCityPicker'>切换城市</button>
+			<div id="center" style="display: none;">
+				<label class="mui-pull-left" style="margin-left: 10px;margin-top:40px;font-weight: bold;font-size: 40px;" id="wendu"></label>
+				<label class="mui-pull-left" style="">o</label>
+				<label style="margin-left: 5px;">实时</label>
+				<div id="center_top">
+					<label class="mui-pull-left" id="ganmao"></label>
+					<label style="margin-left: 5px;" id="quality"></label>
+					<label class="mui-pull-right" id="cityResult"></label>
+				</div>
+				<ul class="mui-table-view" style="margin-top: 10px;">
+					<li class="mui-table-view-cell">
+						天气预报如下：
+					</li>
+				</ul>
+				<div class="mui-scroll">
+					<ul class="mui-table-view mui-table-view-chevron" id="lists">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="../js/mui.picker.js"></script>
+		<script type="text/javascript" src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../js/city.data.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var request_url = "http://v.juhe.cn/weather/index";
+			var key_name = "a7f54538a04dbd86757f177f7c8078f8";
+			var img = "";
+			var city="";
+			var cityResult = document.getElementById("cityResult");
+
+			mui.plusReady(function() {
+				getPosBaidu();
+				mui('.mui-content').on("tap", "#showCityPicker", function() {
+					var cityPicker = new mui.PopPicker({
+						layer: 2
+					});
+					cityPicker.setData(cityData);
+					cityPicker.show(function(items) {
+						if(items[0].text.indexOf("北京市") > -1 || items[0].text.indexOf("天津市") > -1 || items[0].text.indexOf("上海市") > -1 || items[0].text.indexOf("重庆") > -1) {
+							cityResult.innerText = "当前城市: "+items[0].text;
+							getWeatherInfo(items[0].text);
+						} else {
+							cityResult.innerText = "当前城市: "+items[1].text;
+							getWeatherInfo(items[1].text);
+						}
+
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					}, false);
+				})
+			});
+
+			function getWeatherInfo(cityname) {
+				plus.nativeUI.showWaiting("数据加载中");
+				dj.get({
+					url: "http://api.map.baidu.com/telematics/v3/weather",
+					data: {
+						location: cityname,
+						output: "json",
+						ak: "HGOUnCXeQLEeywhGOu2jU29PFdC6duFF"
+					},
+					succFn: function(data) {
+						console.log(data);
+						plus.nativeUI.closeWaiting();
+						$("#center").show();
+						var datas = JSON.parse(data);
+						var result = datas.results;
+						$("#lists").html("");
+						if(datas.status == "success") {
+							for(var n in result) {
+								for(var m in result[n].weather_data) {
+									$("#wendu").html(result[n].weather_data[0].temperature);
+									$("#quality").html(result[n].weather_data[0].weather);
+									$("#ganmao").html(result[n].weather_data[0].wind);
+									var temp = '<li class="mui-table-view-cell">' +
+										'<img class="mui-media-object mui-pull-left" id="weather_img" src="' + result[n].weather_data[m].dayPictureUrl + '" style="margin-top: 25px;width:35px;height:35px">' + '<div class="mui-media-body">' +
+										'<label id="weather">' + result[n].weather_data[m].date + '</label>' +
+										'<p class="mui-ellipsis" id="weather_state">' + result[n].weather_data[m].temperature + '</p>' +
+										'<p class="mui-ellipsis" id="weather_window">' + result[n].weather_data[m].weather + '</p>' +
+										'<p class="mui-ellipsis" id="weather_window">' + result[n].weather_data[m].wind + '</p>' +
+										'</div>' +
+										'<div class="mui-table-cell mui-pull-right mui-text-right" style="margin-top: -60px;">' +
+										'<img class="mui-media-object mui-pull-left" id="weather_img" src="' + result[n].weather_data[m].nightPictureUrl + '" style="width:35px;height:35px">' + '<div class="mui-media-body">' +
+										'</div>' +
+										'</li>';
+									$("#lists").append(temp);
+								}
+							}
+						}
+
+					}
+
+				})
+			}
+
+			setInterval(function() {
+				getWeatherInfo(city);
+			}, 600000); //60秒执行一次
+
+			function weatherTypeImg(type) {
+				if(type == "晴") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d00.gif";
+				} else if(type == "多云") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d01.gif";
+				} else if(type == "阴") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d02.gif"
+				} else if(type == "阵雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d03.gif";
+				} else if(type == "雷阵雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d04.gif";
+				} else if(type == "雷阵雨伴有冰雹") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d05.gif";
+
+				} else if(type == "雨夹雪") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d06.gif";
+
+				} else if(type == "小雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d07.gif";
+				} else if(type == "中雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d08.gif";
+				} else if(type == "大雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d09.gif";
+				} else if(type == "暴雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d10.gif";
+
+				} else if(type == "大暴雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d11.gif";
+
+				} else if(type == "特大暴雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d12.gif";
+
+				} else if(type == "阵雪") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d13.gif";
+
+				} else if(type == "小雪") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d14.gif";
+
+				} else if(type == "中雪") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d15.gif";
+
+				} else if(type == "大雪") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d16.gif";
+
+				} else if(type == "暴雪") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d17.gif";
+
+				} else if(type == "雾") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d18.gif";
+
+				} else if(type == "冻雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d19.gif";
+
+				} else if(type == "沙尘暴") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d20.gif";
+
+				} else if(type == "小雨-中雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d21.gif";
+
+				} else if(type == "中雨-大雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d22.gif";
+
+				} else if(type == "大雨-暴雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d23.gif";
+
+				} else if(type == "暴雨-大暴雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d24.gif";
+
+				} else if(type == "大暴雨-特大暴雨") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d25.gif";
+
+				} else if(type == "小雪-中雪") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d26.gif";
+
+				} else if(type == "中雪-大雪") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d27.gif";
+
+				} else if(type == "大雪-暴雪") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d28.gif";
+
+				} else if(type == "浮尘") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d29.gif";
+
+				} else if(type == "扬沙") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d30.gif";
+
+				} else if(type == "强沙尘暴") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d31.gif";
+
+				} else if(type == "霾") {
+					img = "http://www.weather.com.cn/m/i/icon_weather/42x30/d53.gif";
+				}
+			}
+			
+			function getPosBaidu() {
+				plus.nativeUI.showWaiting("定位中...");
+                plus.geolocation.getCurrentPosition(function getinfo(position){
+                	plus.nativeUI.closeWaiting();
+                    city= position.address.city; //获取城市信息
+                   	cityResult.innerText="当前城市: "+city;
+                   	getWeatherInfo(city);
+                }, function(e) {
+                    alert("获取百度定位位置信息失败：" +e.message);
+                }, {provider: 'baidu'});
+            }
+		</script>
+	</body>
+
+</html>
